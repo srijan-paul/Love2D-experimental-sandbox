@@ -1,5 +1,5 @@
 local Vec2 = require('lib/vector2d')
-local GameConstants = require('GameConstants')
+local GameConstants = require('gameconstants')
 
 local Collider = {}
 

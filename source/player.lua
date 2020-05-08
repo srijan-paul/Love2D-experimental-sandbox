@@ -1,5 +1,5 @@
 local Entity = require('Components/entity')
-local GameConstats = require('GameConstants')
+local GameConstats = require('gameconstants')
 local Vec2 = require('lib/vector2d')
 
 local Player = {}
