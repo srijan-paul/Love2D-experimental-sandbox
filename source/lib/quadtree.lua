@@ -1,5 +1,6 @@
 -- yeah I'll implement this one later. for now let's just go with
 -- a constant grid
+local AABB = require('lib/rect')
 
 local Collider = require('Collider')
 
@@ -11,8 +12,9 @@ function Quadtree:new(x, y, _width, _height, maxElems)
     self.__index = self
     qTree.x, qTree.y = x, y
     qTree.divided = false
-    self.count = 0
-    self.bodies = {}
+    qTree.count = 0
+    qTree.bodies = {}
+    qTree.rect = AABB
     qTree.maxElements = maxElems or DEFAULT_MAX_ELEMENTS
     return setmetatable(qTree, self)
 end
@@ -62,4 +64,9 @@ end
 
 function Quadtree:indexOf(body) 
 
+end
+
+
+function Quadtree:query(_x, _y, _width, _height)
+    
 end

@@ -5,7 +5,7 @@ local GameConstants = {
         LEFT = -1,
         RIGHT = 1
     },
-    SCREEN_WIDTH = 720,
+    SCREEN_WIDTH = 1024,
     SCREEN_HEIGHT = 576
 }
 

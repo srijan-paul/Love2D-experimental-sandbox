@@ -36,4 +36,5 @@ function Collider.getCollisionDir(a, b)
     return GameConstants.Direction.TOP
 end
 
+
 return Collider

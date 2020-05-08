@@ -11,7 +11,9 @@ function Player:new()
     return setmetatable(plyr, Player)
 end
 
-function Player:draw() end
+function Player:draw() 
+    
+end
 
 function Player:update(dt) 
     
