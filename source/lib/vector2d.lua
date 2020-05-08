@@ -42,5 +42,11 @@ function Vector2:mag() return math.sqrt(self.x * self.x + self.y * self.y) end
 -- local v1 = Vector2:new(1, 1)
 -- local v2 = Vector2:new(1, 2)
 -- print((v1 + v2):mag(), math.sqrt( 13 ))
+Vector2.LEFT = Vector2:new(-1, 0)
+Vector2.RIGHT = Vector2:new(1, 0)
+Vector2.UP = Vector2:new(0, -1)
+Vector2.DOWN = Vector2:new(0, 1)
+Vector2.ZERO = Vector2:new(0, 0)
+
 
 return Vector2

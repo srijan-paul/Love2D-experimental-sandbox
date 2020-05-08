@@ -1,9 +1,9 @@
 local GameConstants = {
     Direction = {
-        UP = 1,
+        UP = 3,
         DOWN = 2,
-        LEFT = 3,
-        RIGHT = 4
+        LEFT = -1,
+        RIGHT = 1
     }
 }
 

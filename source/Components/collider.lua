@@ -16,6 +16,7 @@ function Collider:new(_x, _y, _w, _h)
 end
 
 function Collider.checkAABB(a, b)
+    if a == b then return false end
     return
         not ((a.pos.x > b.pos.x + b.width) or (a.pos.x + a.width < b.pos.x) or
             (a.pos.y + a.height < b.pos.y) or (a.pos.y > b.pos.y + b.height))
