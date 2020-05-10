@@ -1,7 +1,8 @@
 ## To-do list for ideas to implement inside this sandbox
 
 [x] Simple AABB collision detection between rectangles
-[ ] Spatial partioning and efficient collision detection using Quadtrees
+[ ] Spatial partioning and efficient collision detection using Quadtrees/Grid
+[ ] Implement a smooth movement system for the player and other entites. (pos, vel ,acceleration)
 [ ] Simple Particle system
 
 

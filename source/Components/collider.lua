@@ -15,6 +15,11 @@ function Collider:new(_x, _y, _w, _h)
     return setmetatable(newCollider, self)
 end
 
+function Collider:draw()
+    love.graphics.rectangle('line', self.pos.x, self.pos.y, self.width,
+                            self.height)
+end
+
 function Collider.checkAABB(a, b)
     if a == b then return false end
     return
@@ -35,6 +40,5 @@ function Collider.getCollisionDir(a, b)
     if dist.y > 0 then return GameConstants.Direction.BOTTOM end
     return GameConstants.Direction.TOP
 end
-
 
 return Collider

@@ -5,4 +5,8 @@ function rect:new(_x, _y, _width, _height)
     return setmetatable(newRect, rect)
 end
 
+function rect:intersects()
+
+end
+
 return rect
