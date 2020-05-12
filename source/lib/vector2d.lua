@@ -3,8 +3,11 @@ local Vector2 = {}
 Vector2.__add =
     function(v1, v2) return Vector2:new(v1.x + v2.x, v1.y + v2.y) end
 
-Vector2.__mul =
-    function(v1, v2) return Vector2:new(v1.x * v2.x, v1.y * v2.y) end
+Vector2.__mul = function(v1, v2)
+    if type(v1) == 'number' then return Vector2:new(v1 * v2.x, v1 * v2.y) end
+    if type(v2) == 'number' then return Vector2:new(v2 * v1.x, v2 * v1.y) end
+    return Vector2:new(v1.x * v2.x, v1.y * v2.y)
+end
 
 Vector2.__sub =
     function(v1, v2) return Vector2:new(v1.x - v2.x, v1.y - v2.y) end
@@ -20,33 +23,35 @@ function Vector2:new(_x, _y)
     local newVec = {}
     assert(type(_x) == 'number' and type(_y) == 'number',
            'Expected number as vector parameter')
-    
-    if _x then
-        newVec.x = _x
-    else
-        newVec.x = 0
-    end
 
-    if _y then
-        newVec.y = _y
-    else
-        newVec.y = 0
-    end
+    newVec.x, newVec.y = _x, _y
     self.__index = self
     return setmetatable(newVec, self)
 end
 
 function Vector2:mag() return math.sqrt(self.x * self.x + self.y * self.y) end
 
+function Vector2:normalized()
+    local root = math.sqrt(self.x * self.x + self.y * self.y)
+    if root == 0 then return Vector2:new(0, 0) end
+    return Vector2:new(self.x / root, self.y / root)
+end
+
+function Vector2:setMag(n)
+    local root = math.sqrt(self.x * self.x + self.y * self.y)
+    self.x = n * (self.x / root)
+    self.y = n * (self.y / root)
+end
+
 -- test code
 -- local v1 = Vector2:new(1, 1)
 -- local v2 = Vector2:new(1, 2)
--- print((v1 + v2):mag(), math.sqrt( 13 ))
-Vector2.LEFT = Vector2:new(-1, 0)
-Vector2.RIGHT = Vector2:new(1, 0)
-Vector2.UP = Vector2:new(0, -1)
-Vector2.DOWN = Vector2:new(0, 1)
-Vector2.ZERO = Vector2:new(0, 0)
+-- print(v2 * 2)
 
+Vector2.LEFT = function() return Vector2:new(-1, 0) end
+Vector2.RIGHT = function() return Vector2:new(1, 0) end
+Vector2.UP = function() return Vector2:new(0, -1) end
+Vector2.DOWN = function() return Vector2:new(0, 1) end
+Vector2.ZERO = function() return Vector2:new(0, 0) end
 
 return Vector2

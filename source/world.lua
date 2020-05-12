@@ -6,7 +6,8 @@ function World:new()
     world = {}
     world.entities = {}
     world._accumulatedTime = 0
-    world.grid = Grid:new(4, 4)
+    world.grid = Grid:new(3, 3, world)
+    world.friction = 0.01
     self.__index = self
     return setmetatable(world, self)
 end
@@ -16,6 +17,7 @@ function World:update(dt)
     if self._accumulatedTime >= TIME_STEP then
         self._accumulatedTime = 0
         for i = 1, #self.entities do self.entities[i]:update(dt) end
+        self.grid:update(dt)
     end
 end
 
@@ -26,6 +28,7 @@ end
 
 function World:add(ent)
     table.insert(self.entities, ent)
+    ent.world = self
     self.grid:insert(ent)
 end
 
@@ -41,6 +44,12 @@ function World:query(x, y, w, h)
 
     return self.grid:query(x, y, w, h)
 end
+
+--[[
+    Below this point lies code that has absolutely no need 
+    to exist, but I'm too afraid to delete it because who knows
+    when I might need it
+--]]
 
 function sortAndSweepX(entities)
     local sortedX = qSort(entities, 'x')

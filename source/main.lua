@@ -11,16 +11,15 @@ function love.load()
 end
 
 function love.draw()
+    show_stats()
     world:draw()
 end
 
-function love.update(dt)
-    world:update(dt)
+function love.update(dt) world:update(dt) end
+
+function show_stats()
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.rectangle('fill', 0, 0, 200, 100)
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.print(love.timer.getFPS(), 10, 10)
 end
-
--- function love.mousepressed(x, y)
-
---     table.insert(ents,
---                  Entity:new(x, y, math.random(10, 30), math.random(10, 30)))
--- end
-

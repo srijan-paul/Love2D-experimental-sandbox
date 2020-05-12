@@ -7,9 +7,9 @@ local Entity = {}
 function Entity:new(x, y, w, h)
     local newEnt = {}
     self.__index = self
-    newEnt.spriteDir = GameConstants.Direction.LEFT
-    newEnt.moveDir = Vec2.ZERO
-    newEnt.moveSpeed = 0
+    newEnt.sprite_dir = GameConstants.Direction.LEFT
+    newEnt.move_dir = Vec2:new(0, 0)
+    newEnt.max_speed = 0
     setmetatable(newEnt, self)
     return newEnt
 end
