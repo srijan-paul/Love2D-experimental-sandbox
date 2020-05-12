@@ -4,7 +4,7 @@ local Vec2 = require('lib/vector2d')
 local Collider = require('components/collider')
 
 local Player = Entity:new()
-local PLAYER_DEFAULT_MS = 20
+local PLAYER_DEFAULT_MS = 10
 local PLAYER_WIDTH, PLAYER_HEIGHT = 50, 50
 
 function Player:new(_x, _y)
@@ -14,6 +14,8 @@ function Player:new(_x, _y)
                                    PLAYER_HEIGHT)
     player.max_speed = PLAYER_DEFAULT_MS
     player.current_speed = 0
+    player.move_dir = Vec2:new(0, 0)
+    player._move_input = false
     return setmetatable(player, self)
 end
 
@@ -31,28 +33,37 @@ function Player:inputLoop()
     if love.keyboard.isDown('a') then
         self.sprite_dir = GameConstants.Direction.LEFT
         self.move_dir.x = -1
+        self.move_input = true
     end
     if love.keyboard.isDown('d') then
         self.sprite_dir = GameConstants.Direction.RIGHT
         self.move_dir.x = 1
+        self.move_input = true
     end
-    if love.keyboard.isDown('w') then self.move_dir.y = -1 end
-    if love.keyboard.isDown('s') then self.move_dir.y = 1 end
+    if love.keyboard.isDown('w') then
+        self.move_dir.y = -1
+        self.move_input = true
+    end
+    if love.keyboard.isDown('s') then
+        self.move_dir.y = 1
+        self.move_input = true
+    end
 end
 
 function Player:movementLoop()
-
-    if self.move_dir.x or self.move_dir.y then
-        self.current_speed = self.current_speed + 1
+    if self.move_input then
+        self.current_speed = self.current_speed + 0.6
         if self.current_speed >= self.max_speed then
             self.current_speed = self.max_speed
         end
     else
-        self.current_speed = self.current_speed - 1
+        self.current_speed = self.current_speed - 0.6
         if self.current_speed < 0 then self.current_speed = 0 end
     end
+    print(self.move_dir.x, self.move_dir.y, self.current_speed)
     self.collider.vel = self.current_speed * self.move_dir:normalized()
     self.move_dir = Vec2:new(0, 0)
+    self.move_input = false
 end
 
 return Player

@@ -28,23 +28,30 @@ local _insert_shape = {
         local pos = body.collider.pos
         --[[ finding the row and column of the min and max cell locations.
         An entity can span multiple grid cells, so I need to find out :
-        -> the row and column where the TOP_LEFT corner of the entity ends up 
+        -> the row and column where the TOP LEFT corner of the entity ends up 
         -> the last column that the entity takes up
         -> the last row that the entity takes up
     --]]
 
-        local row = math.floor(pos.x / grid.cellWidth) + 1
-        local col = math.floor(pos.x / grid.cellHeight) + 1
+        local col = math.floor(pos.x / grid.cellWidth) + 1
+        local row = math.floor(pos.y / grid.cellHeight) + 1
         local maxCol = math.floor((pos.x + collider.width) / grid.cellWidth) + 1
-        local maxRow = math.floor((pos.y + collider.height) / grid.cellHeight) +
-                           1
-        local x, y = row, col
+        local maxRow =
+            (math.floor((pos.y + collider.height) / grid.cellHeight) + 1)
+
         for i = row, maxRow do
-            for j = col, maxCol do
-                --
-                table.insert(grid.cells[i][j], body)
+            if grid.cells[i] then
+                for j = col, maxCol do
+                    if grid.cells[i][j] then
+                        table.insert(grid.cells[i][j], body)
+                    end
+                end
             end
         end
+        -- There is probably a more efficient solution out there 
+        -- than doing this if check every time I insert
+        -- but I'll look for micro optimizations later
+        -- (Note: later = never)
     end
 }
 
@@ -60,7 +67,20 @@ function Grid:draw()
         love.graphics.line(i * self.cellWidth, 0, i * self.cellWidth,
                            GameConstants.SCREEN_HEIGHT)
     end
+    love.graphics.setColor(1, 0.3, 0.3, 1)
+    for i = 1, self.rows do
+        for j = 1, self.cols do
+            love.graphics.print(#self.cells[i][j], j * self.cellWidth - 300,
+                                i * self.cellHeight - 30)
+        end
+    end
+end
 
+function Grid:clear()
+    for i = 1, self.rows do
+        self.cells[i] = {}
+        for j = 1, self.cols do self.cells[i][j] = {} end
+    end
 end
 
 function updateCell(cell)

@@ -1,29 +1,39 @@
 local Grid = require('lib/grid')
 local World = {}
-local TIME_STEP = 0.022
+local TIME_STEP = 0.016
 
 function World:new()
     world = {}
     world.entities = {}
-    world._accumulatedTime = 0
-    world.grid = Grid:new(3, 3, world)
+    world.grid = Grid:new(2, 3, world)
     world.friction = 0.01
+    world.time_lag = 0
     self.__index = self
     return setmetatable(world, self)
 end
 
 function World:update(dt)
-    self._accumulatedTime = self._accumulatedTime + dt
-    if self._accumulatedTime >= TIME_STEP then
+    self.time_lag = self.time_lag + dt
+    while self.time_lag >= TIME_STEP do
         self._accumulatedTime = 0
-        for i = 1, #self.entities do self.entities[i]:update(dt) end
-        self.grid:update(dt)
+        self:_update()
+        self.time_lag = self.time_lag - TIME_STEP
     end
 end
 
 function World:draw()
     for i = 1, #self.entities do self.entities[i]:draw() end
     self.grid:draw()
+end
+
+function World:_update()
+    self.grid:clear()
+    for i = 1, #self.entities do
+        local ent = self.entities[i]
+        ent:update(dt)
+        ent.collider.pos = ent.collider.pos + ent.collider.vel
+        self.grid:insert(ent)
+    end
 end
 
 function World:add(ent)
@@ -33,15 +43,6 @@ function World:add(ent)
 end
 
 function World:query(x, y, w, h)
-    --[[
-        1. quick sort all the entities in the world by their x coordinates
-        2. use binary search to find the index of the entity whose position is 
-            **just** more than or equal to x.
-        3. iterate the sorted array startting from that index and then test all entities
-            in that range for collision until an entity with it's x outside of the query rect is 
-            found. store all the colliding entities in an array and then return it
-    --]]
-
     return self.grid:query(x, y, w, h)
 end
 
