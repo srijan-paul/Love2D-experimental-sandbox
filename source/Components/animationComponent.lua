@@ -1,4 +1,4 @@
-local Anim = require("lib/loveAnim/anim")
+local Anim = require("lib.anim")
 local AnimationPlayer = {}
 
 -- coding stuff like this by hand is so painful...

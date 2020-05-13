@@ -19,7 +19,7 @@ function World:update(dt)
     self.time_lag = self.time_lag + dt
     while self.time_lag >= TIME_STEP do
         self._accumulatedTime = 0
-        self:_update()
+        self:_update(dt)
         self.time_lag = self.time_lag - TIME_STEP
     end
 end
@@ -29,7 +29,7 @@ function World:draw()
     self.grid:draw()
 end
 
-function World:_update()
+function World:_update(dt)
     self.grid:clear()
     for i = 1, #self.entities do
         local ent = self.entities[i]

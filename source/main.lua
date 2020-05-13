@@ -3,9 +3,11 @@ local Collider = require('Components/collider')
 local GameConstants = require('gameconstants')
 local World = require('world')
 local Player = require('player')
+local Resources = require('resources')
 
 local world
 function love.load()
+    Resources.load()
     world = World:new(GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT)
     world:add(Player:new(200, 400))
 end
