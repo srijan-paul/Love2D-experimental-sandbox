@@ -1,12 +1,15 @@
 local Grid = require('lib/grid')
 local World = {}
+local Vec2 = require('lib.vector2d')
 local TIME_STEP = 0.016
+local MAX_SPEED_CAP = 70
+local MIN_SPEED = 0.8
 
 function World:new()
     world = {}
     world.entities = {}
     world.grid = Grid:new(2, 3, world)
-    world.friction = 0.01
+    world.friction = 0.4
     world.time_lag = 0
     self.__index = self
     return setmetatable(world, self)
@@ -31,7 +34,30 @@ function World:_update()
     for i = 1, #self.entities do
         local ent = self.entities[i]
         ent:update(dt)
-        ent.collider.pos = ent.collider.pos + ent.collider.vel
+        local collider = ent.collider
+        --[[
+            apply fricition
+        --]]
+        if collider.vel.x > 0 then
+            collider.vel.x = collider.vel.x - self.friction
+        elseif collider.vel.x < 0 then
+            collider.vel.x = collider.vel.x + self.friction
+        end
+
+        if collider.vel.y > 0 then
+            collider.vel.y = collider.vel.y - self.friction
+        elseif collider.vel.y < 0 then
+            collider.vel.y = collider.vel.y + self.friction
+        end
+
+        if collider.vel:mag() <= MIN_SPEED then
+            collider.vel.x, collider.vel.y = 0, 0
+        end
+        
+        if collider.vel:mag() > ent.max_speed then
+            collider.vel:setMag(ent.max_speed)
+        end
+
         self.grid:insert(ent)
     end
 end
@@ -42,15 +68,15 @@ function World:add(ent)
     self.grid:insert(ent)
 end
 
-function World:query(x, y, w, h)
-    return self.grid:query(x, y, w, h)
-end
+function World:query(x, y, w, h) return self.grid:query(x, y, w, h) end
 
+------------------------------------------------------------------------
 --[[
     Below this point lies code that has absolutely no need 
     to exist, but I'm too afraid to delete it because who knows
     when I might need it
 --]]
+-----------------------------------------------------------------------
 
 function sortAndSweepX(entities)
     local sortedX = qSort(entities, 'x')

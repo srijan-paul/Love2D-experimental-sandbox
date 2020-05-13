@@ -2,7 +2,7 @@
 
 [x] Simple AABB collision detection between rectangles
 [?] Spatial partioning and efficient collision detection using Quadtrees/Grid
-[x] Implement a smooth movement system for the player and other entites. (pos, vel, acceleration)
+[x] Implement a smooth movement system for the player and other entites. (pos, vel)
 [ ] Simple Particle system
 
 

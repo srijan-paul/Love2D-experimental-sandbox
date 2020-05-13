@@ -9,8 +9,8 @@ function Collider:new(_shape, _x, _y, _w, _h)
            'Expected number as collider position')
 
     new_collider = {pos = Vec2:new(_x, _y), shape = _shape}
+    new_collider.prev_pos = Vec2:new(_x, _y)
     new_collider.vel = Vec2:new(0, 0)
-    new_collider.acc = Vec2:new(0, 0)
     self.__index = self
 
     if _shape == ColliderShapes.Circle then
@@ -34,6 +34,11 @@ local _draw_collider = {
 }
 
 function Collider:draw() _draw_collider[self.shape](self) end
+
+function Collider:update(dt) 
+    self.prev_pos = self.pos
+    self.pos = self.pos + self.vel
+end
 
 local _check_collision = {
     ['circle-circle'] = cdCircCirc,
@@ -83,6 +88,7 @@ function cdCircRect(c, r)
     local dist = rCenter - c.pos
     -- TODO: implement this    
 end
+
 
 function Collider.getAABBcolDir(a, b)
     local dist = a - b

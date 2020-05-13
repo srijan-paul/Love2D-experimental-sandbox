@@ -4,7 +4,7 @@ local Vec2 = require('lib/vector2d')
 local Collider = require('components/collider')
 
 local Player = Entity:new()
-local PLAYER_DEFAULT_MS = 10
+local PLAYER_DEFAULT_MS = 5
 local PLAYER_WIDTH, PLAYER_HEIGHT = 50, 50
 
 function Player:new(_x, _y)
@@ -27,6 +27,7 @@ end
 function Player:update(dt)
     self:inputLoop()
     self:movementLoop()
+    self.collider:update(dt)
 end
 
 function Player:inputLoop()
@@ -60,8 +61,8 @@ function Player:movementLoop()
         self.current_speed = self.current_speed - 0.6
         if self.current_speed < 0 then self.current_speed = 0 end
     end
-    print(self.move_dir.x, self.move_dir.y, self.current_speed)
-    self.collider.vel = self.current_speed * self.move_dir:normalized()
+    local move_vel = self.current_speed * self.move_dir:normalized()
+    self.collider.vel = self.collider.vel + move_vel
     self.move_dir = Vec2:new(0, 0)
     self.move_input = false
 end
