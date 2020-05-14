@@ -16,7 +16,7 @@ function love.load()
 end
 
 function love.draw()    
-    love.graphics.draw(cursor, love.mouse.getX(), love.mouse.getY(), 0, 1.5, 1.5)
+    love.graphics.draw(cursor, love.mouse.getX(), love.mouse.getY(), 0, 3, 3)
     show_stats()
     world:draw()
 end
