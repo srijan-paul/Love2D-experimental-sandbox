@@ -19,6 +19,14 @@ Vector2.__eq = function(v1, v2) return v1.x == v2.x and v1.y == v2.y end
 Vector2.__tostring =
     function(v) return '{x = ' .. v.x .. ', y = ' .. v.y .. '}' end
 
+Vector2.__lt = function(v1, v2) return v1:mag() < v2:mag() end
+
+Vector2.__le = function(v1, v2) return v1:mag() <= v2:mag() end
+
+Vector2.__gt = function(v1, v2) return v1:mag() < v2:mag() end
+
+Vector2.__ge = function(v1, v2) return v1:mag() >= v2:mag() end
+
 function Vector2:new(_x, _y)
     local newVec = {}
     assert(type(_x) == 'number' and type(_y) == 'number',
