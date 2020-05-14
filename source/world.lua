@@ -1,4 +1,4 @@
-local Grid = require('lib/grid')
+local Grid = require('lib.grid')
 local World = {}
 local Vec2 = require('lib.vector2d')
 local TIME_STEP = 0.016
@@ -8,8 +8,8 @@ local MIN_SPEED = 0.8
 function World:new()
     world = {}
     world.entities = {}
-    world.grid = Grid:new(2, 3, world)
-    world.friction = 0.4
+    world.grid = Grid:new(4, 4, world)
+    world.friction = 0.2
     world.time_lag = 0
     self.__index = self
     return setmetatable(world, self)
@@ -35,9 +35,8 @@ function World:_update(dt)
         local ent = self.entities[i]
         ent:update(dt)
         local collider = ent.collider
-        --[[
-            apply fricition
-        --]]
+        
+        -- apply friction if the entity is moving
         if collider.vel.x > 0 then
             collider.vel.x = collider.vel.x - self.friction
         elseif collider.vel.x < 0 then
@@ -50,10 +49,12 @@ function World:_update(dt)
             collider.vel.y = collider.vel.y + self.friction
         end
 
+        -- if the entity is moving too slow, stop moving
         if collider.vel:mag() <= MIN_SPEED then
             collider.vel.x, collider.vel.y = 0, 0
         end
         
+        -- cap the max velocity of the entity
         if collider.vel:mag() > ent.max_speed then
             collider.vel:setMag(ent.max_speed)
         end

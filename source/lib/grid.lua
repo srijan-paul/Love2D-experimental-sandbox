@@ -58,20 +58,20 @@ local _insert_shape = {
 function Grid:insert(body) _insert_shape[body.collider.shape](body, self) end
 
 function Grid:draw()
-    love.graphics.setColor(1, 0.3, 0.3, 0.4)
-    for i = 1, self.rows do
-        love.graphics.line(0, i * self.cellHeight, GameConstants.SCREEN_WIDTH,
-                           i * self.cellHeight)
-    end
-    for i = 1, self.cols do
-        love.graphics.line(i * self.cellWidth, 0, i * self.cellWidth,
-                           GameConstants.SCREEN_HEIGHT)
-    end
-    love.graphics.setColor(1, 0.3, 0.3, 1)
     for i = 1, self.rows do
         for j = 1, self.cols do
-            love.graphics.print(#self.cells[i][j], j * self.cellWidth - 300,
-                                i * self.cellHeight - 30)
+            love.graphics.setColor(1, 0.3, 0.3, 0.4)
+            local x, y = (j - 1) * self.cellWidth, (i - 1) * self.cellHeight
+            local w, h = self.cellWidth, self.cellHeight
+            love.graphics.rectangle('line', x, y, w, h)
+            if #self.cells[i][j] > 0 then
+                love.graphics.setColor(1, 1, 1, 0.1)
+                love.graphics.rectangle('fill', x, y, w, h)
+            end
+            local centerX = x + self.cellWidth / 2 - 10
+            local centerY = y + self.cellHeight / 2 - 10
+            love.graphics.setColor(1, 1, 1, 1)
+            love.graphics.print(#self.cells[i][j], centerX, centerY)
         end
     end
 end
