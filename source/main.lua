@@ -31,30 +31,3 @@ function show_stats()
     love.graphics.print('Memory: ' .. collectgarbage('count'), 10, 25, 0, 1.2,
                         1.2)
 end
-
--- function love.load()
-
--- end
-
--- local x,y = 100, 100
-
--- function love.draw()
---     love.graphics.rectangle('fill', x, y, 40, 40)
--- end
-
--- function love.update(dt)
---     if love.keyboard.isDown('d') then
---         x = x + 20
---     end
-
---     if love.keyboard.isDown('a') then
---         x = x - 20
---     end
---     if love.keyboard.isDown('s') then
---         y = y + 20
---     end
-
---     if love.keyboard.isDown('w') then
---         y = y - 20
---     end
--- end

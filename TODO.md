@@ -4,8 +4,10 @@
 [?] Spatial partioning and efficient collision detection using Quadtrees/Grid
 [x] Implement a smooth movement system for the player and other entites. (pos, vel)
 [ ] Simple Particle system
-
-
+[ ] Weapon class
+[ ] Projectile class
+[ ] WeaponType 
+[ ] ProjectileType
 
 
 
