@@ -1,5 +1,4 @@
 local Entity = require('Components/entity')
-local GameConstants = require('gameconstants')
 local Vec2 = require('lib/vector2d')
 local Collider = require('components/collider')
 local Anim = require('components.animationComponent')
@@ -17,36 +16,49 @@ function Player:new(_x, _y)
     self.__index = self
     player.collider = Collider:new('rect', player.x, player.y, PLAYER_WIDTH,
                                    PLAYER_HEIGHT)
+    -- remove this weapon code and make it dynamic so a player can pick up 
+    -- and throw weapons 
     player.weapon = Weapon:new(WeaponType.Revolver, player)
+
+    -- physics stuff
     player.max_speed = PLAYER_DEFAULT_MS
     player.current_speed = 0
     player.move_dir = Vec2:new(0, 0)
     player._move_input = false
     player.face_dir = 1
+    -- instantiate the animations
     player.anim = Anim:new(Resources.Textures.Player, 6, 3)
     player.state = 'walk'
-    player.anim:add('idle-right', '1-3', 0.15, true)
-    player.anim:add('idle-left', '10-12', 0.15, true)
-    player.anim:add('walk-right', '4-6', 0.15, true)
-    player.anim:add('walk-left', '7-9', 0.15, true)
+    player.anim:add('idle-right', '1-2', 0.2, true)
+    player.anim:add('idle-left', '9-11', 0.15, true)
+    player.anim:add('walk-right', '3-5', 0.15, true)
+    player.anim:add('walk-left', '6-8', 0.15, true)
     player.anim:play('idle-right')
     return setmetatable(player, self)
 end
 
 function Player:draw()
     love.graphics.setColor(1, 0, 1, 1)
-    self.collider:draw()
-    love.graphics.setColor(1, 1, 1, 1)
-    self.anim:show(self.collider.pos.x, self.collider.pos.y, 0, 3, 3)
-    self.weapon:draw()
+    -- self.collider:draw()
     local x = love.mouse.getX()
     if self.collider.pos.x > x then
         self.face_dir = -1
     else
         self.face_dir = 1
     end
+
+    love.graphics.setColor(1, 1, 1, 1)
+    if self.collider.pos.y + self.collider.width < love.mouse.getY() then
+        self.anim:show(self.collider.pos.x, self.collider.pos.y, 0, 3, 3)
+        self.weapon:draw()
+    else
+        self.weapon:draw()
+        self.anim:show(self.collider.pos.x, self.collider.pos.y, 0, 3, 3)
+    end
+
 end
 
+-- returns the position from where the weapon should be displayed
 function Player:getWeaponPivot()
     if self.face_dir == 1 then
         return self.collider.pos.x + PLAYER_WIDTH - 12,
@@ -106,8 +118,8 @@ function Player:movementLoop()
 end
 
 function setState(player, state)
-    local dir = 'right'
-    if player.face_dir == -1 then dir = 'left' end
+    local dir = GameConstants.Direction.RIGHT
+    if player.face_dir == -1 then dir = GameConstants.Direction.LEFT end
     player.state = state .. '-' .. dir
 end
 

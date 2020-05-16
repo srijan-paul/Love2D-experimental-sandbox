@@ -1,10 +1,5 @@
-local GameConstants = {
-    Direction = {
-        UP = 3,
-        DOWN = 2,
-        LEFT = -1,
-        RIGHT = 1
-    },
+GameConstants = {
+    Direction = {UP = 'up', DOWN = 'down', LEFT = 'left', RIGHT = 'right'},
     SCREEN_WIDTH = 1024,
     SCREEN_HEIGHT = 576
 }

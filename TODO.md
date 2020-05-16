@@ -6,10 +6,6 @@
 [ ] Simple Particle system
 [ ] Weapon class
 [ ] Projectile class
-[ ] WeaponType 
+[ ] WeaponType
 [ ] ProjectileType
-
-
-
-
-
+[ ] Depth sorting the weapon over the player (not really)

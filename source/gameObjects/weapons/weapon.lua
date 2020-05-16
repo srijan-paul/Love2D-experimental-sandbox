@@ -20,15 +20,17 @@ function Weapon:draw()
     local angle = math.atan(dy / dx)
 
     local x,y = self.owner:getWeaponPivot()
-    -- love.graphics.circle('fill', self.owner.collider.pos.x + w / 2,
-    --                      self.owner.collider.pos.y + h / 2, 10)
+    local scaleX, scaleY = 5, 5
+    if self.owner.face_dir == - 1 then
+        scaleX = -5
+    end
     love.graphics.push()
 
     -- move the origin to weapon's pivot
     love.graphics.translate(x, y)
     love.graphics.rotate(angle) -- rotate the canvas around the relative origin
     love.graphics.translate(-x, -y) -- move origin back to 0, 0
-    love.graphics.draw(Resources.Textures.Weapons.Revolver, x, y, 0, 0.5, 0.5)
+    love.graphics.draw(Resources.Textures.Weapons.Revolver, x, y, 0, scaleX, scaleY)
     love.graphics.pop()
 end
 

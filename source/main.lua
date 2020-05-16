@@ -13,7 +13,7 @@ function love.load()
     love.mouse.setVisible(false)
     world = World:new(GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT)
     world:add(Player:new(200, 400))
-    love.graphics.setBackgroundColor(util.hexToColor('#2d3436'))
+    love.graphics.setBackgroundColor(util.hexToColor('#3B3B98'))
 end
 
 function love.draw()    
