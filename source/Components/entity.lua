@@ -4,7 +4,7 @@ local GameConstants = require('gameconstants')
 
 local Entity = {}
 
-function Entity:new(x, y, w, h)
+function Entity:new()
     local newEnt = {}
     self.__index = self
     newEnt.sprite_dir = GameConstants.Direction.LEFT

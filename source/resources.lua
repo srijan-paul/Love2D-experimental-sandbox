@@ -1,10 +1,11 @@
-local Resources = {Texture = {}}
+Resources = {Textures = {Weapons = {}}}
 
 function Resources.load()
     -- textures and images
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    Resources.Texture.Player = love.graphics.newImage('assets/img/suit_guy.png')
-    Resources.Texture.Cursor = love.graphics.newImage('assets/img/crosshair_n.png')
+    Resources.Textures.Player = love.graphics.newImage('assets/img/YV.png')
+    Resources.Textures.Cursor = love.graphics.newImage('assets/img/crosshair_n.png')
+    Resources.Textures.Weapons.Revolver = love.graphics.newImage('assets/img/weapon/revolver.png')
 end
 
 return Resources

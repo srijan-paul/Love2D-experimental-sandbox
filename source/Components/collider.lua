@@ -79,7 +79,6 @@ end
 function cdPointCirc(p, c) return (c.pos - p.pos):mag() > c.radius end
 
 function cdPointRect(p, r)
-    -- todo: implement this
     return false
 end
 

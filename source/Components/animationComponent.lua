@@ -20,7 +20,7 @@ function AnimationPlayer:add(key, str, time, loop)
   splitIndex = str:find('-')
   assert(splitIndex ~= nil)
   startIndex = tonumber(str:sub(1, splitIndex - 1))
-  endIndex = tonumber(str:sub(splitIndex + 1, splitIndex + 1))
+  endIndex = tonumber(str:sub(splitIndex + 1 , string.len(str)))
   self.anims[key] = Anim:new(self._sheet, startIndex, endIndex, time, loop)
 end
 

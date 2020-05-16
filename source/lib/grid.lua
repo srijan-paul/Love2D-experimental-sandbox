@@ -60,12 +60,12 @@ function Grid:insert(body) _insert_shape[body.collider.shape](body, self) end
 function Grid:draw()
     for i = 1, self.rows do
         for j = 1, self.cols do
-            love.graphics.setColor(1, 0.3, 0.3, 0.4)
+            love.graphics.setColor(1, 1, 1, 0.1)
             local x, y = (j - 1) * self.cellWidth, (i - 1) * self.cellHeight
             local w, h = self.cellWidth, self.cellHeight
             love.graphics.rectangle('line', x, y, w, h)
             if #self.cells[i][j] > 0 then
-                love.graphics.setColor(1, 1, 1, 0.1)
+                love.graphics.setColor(1, 1, 1, 0.02)
                 love.graphics.rectangle('fill', x, y, w, h)
             end
             local centerX = x + self.cellWidth / 2 - 10

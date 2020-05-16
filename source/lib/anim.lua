@@ -72,7 +72,7 @@ function Animation:new(spriteSheet, s, e, t, l)
         frameCount = e - s + 1,
         timeElapsed = 0
     }
-    assert(newAnim.frameCount > 0)
+    assert(newAnim.frameCount > 0, 'animation must have at least 1 frame')
     self.__index = self
     return setmetatable(newAnim, self)
 end

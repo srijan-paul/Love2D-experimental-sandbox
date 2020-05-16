@@ -3,16 +3,17 @@ local Collider = require('Components/collider')
 local GameConstants = require('gameconstants')
 local World = require('world')
 local Player = require('gameObjects.player')
-local Resources = require('resources')
+local util = require('lib.util')
 
 local world
 
 function love.load()
     Resources.load()
-    cursor = Resources.Texture.Cursor
+    cursor = Resources.Textures.Cursor
     love.mouse.setVisible(false)
     world = World:new(GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT)
     world:add(Player:new(200, 400))
+    love.graphics.setBackgroundColor(util.hexToColor('#2d3436'))
 end
 
 function love.draw()    
