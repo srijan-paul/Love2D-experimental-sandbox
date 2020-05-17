@@ -4,7 +4,7 @@
 [?] Spatial partioning and efficient collision detection using Quadtrees/Grid
 [x] Implement a smooth movement system for the player and other entites. (pos, vel)
 [ ] Simple Particle system
-[ ] Weapon class
+[x] Weapon class
 [ ] Projectile class
 [ ] WeaponType
 [ ] ProjectileType
@@ -12,4 +12,4 @@
 
 Issues :
 
-[ ] Weapon's muzzle doesn't directly face the mouse pointer
+[x] Weapon's muzzle doesn't directly face the mouse pointer
