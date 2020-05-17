@@ -1,11 +1,20 @@
-local Entity = require("Components/entity")
-local Collider = require('Components/collider')
-local GameConstants = require('gameconstants')
+local Entity = require("components/entity")
+local Collider = require('components/collider')
 local World = require('world')
 local Player = require('gameObjects.player')
 local util = require('lib.util')
 
 local world
+
+-- global functions that need to be accessed from anywhere
+
+cursorPos = function() return love.mouse.getX() + 40, love.mouse.getY() - 40 end
+
+cursorX = function() return love.mouse.getX() + 40 end
+
+cursorY = function() return love.mouse.getY() + 40 end
+
+-- love code
 
 function love.load()
     Resources.load()
@@ -16,7 +25,8 @@ function love.load()
     love.graphics.setBackgroundColor(util.hexToColor('#3B3B98'))
 end
 
-function love.draw()    
+function love.draw()
+    -- draw the cursor
     love.graphics.draw(cursor, love.mouse.getX(), love.mouse.getY(), 0, 3, 3)
     show_stats()
     world:draw()

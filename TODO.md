@@ -9,3 +9,7 @@
 [ ] WeaponType
 [ ] ProjectileType
 [ ] Depth sorting the weapon over the player (not really)
+
+Issues :
+
+[ ] Weapon's muzzle doesn't directly face the mouse pointer

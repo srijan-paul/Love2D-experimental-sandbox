@@ -40,8 +40,8 @@ end
 function Player:draw()
     love.graphics.setColor(1, 0, 1, 1)
     -- self.collider:draw()
-    local x = love.mouse.getX()
-    if self.collider.pos.x > x then
+
+    if self.collider.pos.x + self.collider.width / 2 > cursorX() then
         self.face_dir = -1
     else
         self.face_dir = 1

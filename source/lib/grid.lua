@@ -26,12 +26,13 @@ local _insert_shape = {
     ['rect'] = function(body, grid)
         local collider = body.collider
         local pos = body.collider.pos
-        --[[ finding the row and column of the min and max cell locations.
+        --[[ 
+        finding the row and column of the min and max cell locations.
         An entity can span multiple grid cells, so I need to find out :
         -> the row and column where the TOP LEFT corner of the entity ends up 
         -> the last column that the entity takes up
         -> the last row that the entity takes up
-    --]]
+        --]]
 
         local col = math.floor(pos.x / grid.cellWidth) + 1
         local row = math.floor(pos.y / grid.cellHeight) + 1
